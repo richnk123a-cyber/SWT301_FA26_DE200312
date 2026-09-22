@@ -16,6 +16,7 @@ class AccountServiceTest {
 
     @BeforeEach
     void setUp() {
+        // Arrange chung cho mỗi test
         service = new AccountService();
     }
 
@@ -38,15 +39,19 @@ class AccountServiceTest {
 
     @ParameterizedTest(name = "Email không hợp lệ: \"{0}\"")
     @CsvSource(value = {
-            "bobmail.com",        // thiếu @
-            "missing@dot",        // thiếu .domain
-            "'@nodomain.com'",    // thiếu local part
-            "' '",                // chỉ khoảng trắng
-            "NULL"                // sẽ map về null
+            "bobmail.com",       // thiếu @
+            "missing@dot",       // thiếu .domain
+            "'@nodomain.com'",   // thiếu local part
+            "' '",               // chỉ khoảng trắng
+            "NULL"               // sẽ map về null
     }, nullValues = "NULL")
     @DisplayName("isValidEmail trả về false với email sai định dạng / null")
     void isValidEmail_InvalidEmails_ReturnsFalse(String email) {
-        assertFalse(service.isValidEmail(email));
+        // Act
+        boolean result = service.isValidEmail(email);
+
+        // Assert
+        assertFalse(result);
     }
 
     // ---------- registerAccount (CSV File Source) ----------
@@ -72,7 +77,7 @@ class AccountServiceTest {
     void registerAccount_PasswordExactly6_ReturnsFalse() {
         // Arrange
         String username = "bob";
-        String password = "abcdef";          // đúng 6 ký tự
+        String password = "abcdef"; // đúng 6 ký tự
         String email = "bob@mail.com";
 
         // Act
@@ -85,12 +90,61 @@ class AccountServiceTest {
     @Test
     @DisplayName("registerAccount: password = 7 ký tự (biên trên) → true")
     void registerAccount_PasswordExactly7_ReturnsTrue() {
-        assertTrue(service.registerAccount("bob", "abcdefg", "bob@mail.com"));
+        // Arrange
+        String username = "bob";
+        String password = "abcdefg"; // đúng 7 ký tự
+        String email = "bob@mail.com";
+
+        // Act
+        boolean actual = service.registerAccount(username, password, email);
+
+        // Assert
+        assertTrue(actual);
     }
 
     @Test
     @DisplayName("registerAccount: tất cả tham số null → false")
     void registerAccount_AllNull_ReturnsFalse() {
-        assertFalse(service.registerAccount(null, null, null));
+        // Arrange & Act
+        boolean actual = service.registerAccount(null, null, null);
+
+        // Assert
+        assertFalse(actual);
+    }
+
+    @Test
+    @DisplayName("registerAccount: username null hoặc rỗng/khoảng trắng → false")
+    void registerAccount_InvalidUsername_ReturnsFalse() {
+        // Arrange
+        String validPass = "pass1234";
+        String validEmail = "user@test.com";
+
+        // Act & Assert
+        assertFalse(service.registerAccount(null, validPass, validEmail));
+        assertFalse(service.registerAccount("", validPass, validEmail));
+        assertFalse(service.registerAccount("   ", validPass, validEmail));
+    }
+
+    @Test
+    @DisplayName("registerAccount: password null → false")
+    void registerAccount_NullPassword_ReturnsFalse() {
+        // Arrange
+        String validUser = "validUser";
+        String validEmail = "user@test.com";
+
+        // Act & Assert
+        assertFalse(service.registerAccount(validUser, null, validEmail));
+    }
+
+    @Test
+    @DisplayName("registerAccount: email không hợp lệ hoặc null → false")
+    void registerAccount_InvalidEmail_ReturnsFalse() {
+        // Arrange
+        String validUser = "validUser";
+        String validPass = "pass1234";
+
+        // Act & Assert
+        assertFalse(service.registerAccount(validUser, validPass, null));
+        assertFalse(service.registerAccount(validUser, validPass, "invalid-email"));
     }
 }
