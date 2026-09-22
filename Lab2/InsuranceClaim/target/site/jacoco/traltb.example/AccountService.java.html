@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AccountService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">InsuranceClaim</a> &gt; <a href="index.source.html" class="el_package">traltb.example</a> &gt; <span class="el_source">AccountService.java</span></div><h1>AccountService.java</h1><pre class="source lang-java linenums">package traltb.example;
+
+import java.util.regex.Pattern;
+
+<span class="fc" id="L5">public class AccountService {</span>
+
+<span class="fc" id="L7">    private static final Pattern EMAIL_PATTERN =</span>
+<span class="fc" id="L8">            Pattern.compile(&quot;^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$&quot;);</span>
+
+    public boolean isValidEmail(String email) {
+<span class="fc bfc" id="L11" title="All 4 branches covered.">        if (email == null || email.isBlank()) {</span>
+<span class="fc" id="L12">            return false;</span>
+        }
+<span class="fc" id="L14">        return EMAIL_PATTERN.matcher(email).matches();</span>
+    }
+
+    public boolean registerAccount(String username, String password, String email) {
+<span class="fc bfc" id="L18" title="All 4 branches covered.">        if (username == null || username.isBlank()) return false;</span>
+<span class="fc bfc" id="L19" title="All 4 branches covered.">        if (password == null || password.length() &lt;= 6) return false;</span>
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        if (!isValidEmail(email)) return false;</span>
+        // (Demo) — bỏ qua phần lưu DB
+<span class="fc" id="L22">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
