@@ -15,8 +15,8 @@ import java.util.regex.Pattern;
     }
 
     public boolean registerAccount(String username, String password, String email) {
-<span class="fc bfc" id="L18" title="All 4 branches covered.">        if (username == null || username.isBlank()) return false;</span>
-<span class="fc bfc" id="L19" title="All 4 branches covered.">        if (password == null || password.length() &lt;= 6) return false;</span>
+<span class="pc bpc" id="L18" title="1 of 4 branches missed.">        if (username == null || username.isBlank()) return false;</span>
+<span class="pc bpc" id="L19" title="1 of 4 branches missed.">        if (password == null || password.length() &lt;= 6) return false;</span>
 <span class="fc bfc" id="L20" title="All 2 branches covered.">        if (!isValidEmail(email)) return false;</span>
         // (Demo) — bỏ qua phần lưu DB
 <span class="fc" id="L22">        return true;</span>

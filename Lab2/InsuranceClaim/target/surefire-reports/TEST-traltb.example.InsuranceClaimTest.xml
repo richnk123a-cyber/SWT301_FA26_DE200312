@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="traltb.example.InsuranceClaimTest" time="0.086" tests="14" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="traltb.example.InsuranceClaimTest" time="0.089" tests="14" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-21.0.11.10-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\LEGION\AppData\Local\Temp\surefire16345971898591533591\surefirebooter-20260923030725921_3.jar C:\Users\LEGION\AppData\Local\Temp\surefire16345971898591533591 2026-09-23T03-07-25_683-jvmRun1 surefire-20260923030725921_1tmp surefire_0-20260923030725921_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\LEGION\AppData\Local\Temp\surefire7862830183953492787\surefirebooter-20260923031948035_3.jar C:\Users\LEGION\AppData\Local\Temp\surefire7862830183953492787 2026-09-23T03-19-47_801-jvmRun1 surefire-20260923031948035_1tmp surefire_0-20260923031948035_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="E:\Data1\SWT301\CodeNop\Lab2\InsuranceClaim\target\test-classes;E:\Data1\SWT301\CodeNop\Lab2\InsuranceClaim\target\classes;C:\Users\LEGION\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.12.2\junit-jupiter-engine-5.12.2.jar;C:\Users\LEGION\.m2\repository\org\junit\platform\junit-platform-engine\1.12.2\junit-platform-engine-1.12.2.jar;C:\Users\LEGION\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\LEGION\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.12.2\junit-jupiter-api-5.12.2.jar;C:\Users\LEGION\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\LEGION\.m2\repository\org\junit\platform\junit-platform-commons\1.12.2\junit-platform-commons-1.12.2.jar;C:\Users\LEGION\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.12.2\junit-jupiter-params-5.12.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\LEGION\AppData\Local\Temp\surefire16345971898591533591\surefirebooter-20260923030725921_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\LEGION\AppData\Local\Temp\surefire7862830183953492787\surefirebooter-20260923031948035_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.11+10-LTS"/>
@@ -59,18 +59,18 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="toString_ReturnsExpectedFormat" classname="traltb.example.InsuranceClaimTest" time="0.035"/>
-  <testcase name="processClaim_NullInput_Throws" classname="traltb.example.InsuranceClaimTest" time="0.004"/>
+  <testcase name="toString_ReturnsExpectedFormat" classname="traltb.example.InsuranceClaimTest" time="0.038"/>
+  <testcase name="processClaim_NullInput_Throws" classname="traltb.example.InsuranceClaimTest" time="0.005"/>
   <testcase name="calculatePayout_StatusApproved_Returns85Percent" classname="traltb.example.InsuranceClaimTest" time="0.002"/>
-  <testcase name="updateClaimAmount_ValidValue_Updates" classname="traltb.example.InsuranceClaimTest" time="0.0"/>
+  <testcase name="updateClaimAmount_ValidValue_Updates" classname="traltb.example.InsuranceClaimTest" time="0.001"/>
   <testcase name="processClaim_StatusPending_UpdatesStatus" classname="traltb.example.InsuranceClaimTest" time="0.001"/>
   <testcase name="processClaim_StatusNotPending_ReturnsFalse" classname="traltb.example.InsuranceClaimTest" time="0.001"/>
-  <testcase name="constructor_InvalidAmount_Throws" classname="traltb.example.InsuranceClaimTest" time="0.002"/>
+  <testcase name="constructor_InvalidAmount_Throws" classname="traltb.example.InsuranceClaimTest" time="0.003"/>
   <testcase name="updateClaimAmount_Invalid_Throws" classname="traltb.example.InsuranceClaimTest" time="0.003"/>
-  <testcase name="calculatePayout_VariousStatuses(String, double)[1]" classname="traltb.example.InsuranceClaimTest" time="0.012"/>
+  <testcase name="calculatePayout_VariousStatuses(String, double)[1]" classname="traltb.example.InsuranceClaimTest" time="0.014"/>
   <testcase name="calculatePayout_VariousStatuses(String, double)[2]" classname="traltb.example.InsuranceClaimTest" time="0.001"/>
   <testcase name="calculatePayout_VariousStatuses(String, double)[3]" classname="traltb.example.InsuranceClaimTest" time="0.001"/>
   <testcase name="constructor_ValidInput_InitializesValues" classname="traltb.example.InsuranceClaimTest" time="0.001"/>
   <testcase name="calculatePayout_StatusNotApproved_ReturnsZero" classname="traltb.example.InsuranceClaimTest" time="0.001"/>
-  <testcase name="constructor_NullClaimId_Throws" classname="traltb.example.InsuranceClaimTest" time="0.002"/>
+  <testcase name="constructor_NullClaimId_Throws" classname="traltb.example.InsuranceClaimTest" time="0.003"/>
 </testsuite>
