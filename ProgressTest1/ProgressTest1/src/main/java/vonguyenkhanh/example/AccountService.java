@@ -71,18 +71,27 @@ public class AccountService {
         return ResultCode.SUCCESS;
     }
 
-    // ================= Đăng nhập =================
+    // ================= Đăng nhập (BR-LOG-01..08) =================
+    /**
+     * BR-LOG: Xử lý đăng nhập theo thứ tự ưu tiên trong bảng quyết định:
+     * 1. Kiểm tra username/password null/blank -> INVALID_INPUT
+     * 2. Kiểm tra tài khoản tồn tại -> INVALID_CREDENTIALS (không tiết lộ lý do)
+     * 3. Kiểm tra DISABLED -> ACCOUNT_DISABLED
+     * 4. Kiểm tra đang bị khóa (isLocked) -> ACCOUNT_LOCKED (không tăng bộ đếm)
+     * 5. Kiểm tra mật khẩu: nếu sai -> tăng bộ đếm failedAttempts, nếu >= 5 thì khóa tài khoản và trả ACCOUNT_LOCKED, ngược lại INVALID_CREDENTIALS
+     * 6. Nếu đúng -> reset bộ đếm về 0, trả SUCCESS
+     */
     public ResultCode login(String username, String password) {
-        // BR-LOG-01
+        // BR-LOG-01: username hoặc password rỗng/blank
         if (isBlank(username) || isBlank(password)) {
             return ResultCode.INVALID_INPUT;
         }
-        // BR-LOG-02, 03 (user không tồn tại)
+        // BR-LOG-02, 03: user không tồn tại -> INVALID_CREDENTIALS
         Account account = accountsByUsername.get(key(username));
         if (account == null) {
             return ResultCode.INVALID_CREDENTIALS;
         }
-        // BR-LOG-04
+        // BR-LOG-04: tài khoản bị vô hiệu hóa
         if (account.getStatus() == AccountStatus.DISABLED) {
             return ResultCode.ACCOUNT_DISABLED;
         }
@@ -99,7 +108,7 @@ public class AccountService {
             }
             return ResultCode.INVALID_CREDENTIALS;
         }
-        // BR-LOG-08
+        // BR-LOG-08: đăng nhập thành công, reset số lần sai về 0
         account.resetFailedAttempts();
         return ResultCode.SUCCESS;
     }
@@ -180,7 +189,8 @@ public class AccountService {
         return ResultCode.SUCCESS;
     }
 
-    // ================= Quản trị & truy vấn =================
+    // ================= Quản trị & truy vấn (BR-ADM-01..03) =================
+    /** BR-ADM-01: Vô hiệu hóa tài khoản; nếu không tìm thấy trả USER_NOT_FOUND. */
     public ResultCode disableAccount(String username) {
         Optional<Account> account = findByUsername(username);
         if (account.isEmpty()) {
@@ -190,7 +200,7 @@ public class AccountService {
         return ResultCode.SUCCESS;
     }
 
-    /** BR-ADM-03: quản trị viên mở khóa tài khoản bị khóa do đăng nhập sai. */
+    /** BR-ADM-03: Quản trị viên mở khóa tài khoản bị khóa do đăng nhập sai, đặt lại failedAttempts = 0. */
     public ResultCode unlockAccount(String username) {
         Optional<Account> account = findByUsername(username);
         if (account.isEmpty()) {
@@ -200,6 +210,7 @@ public class AccountService {
         return ResultCode.SUCCESS;
     }
 
+    /** BR-ADM-02: Tìm kiếm tài khoản theo username (không phân biệt hoa/thường). */
     public Optional<Account> findByUsername(String username) {
         if (isBlank(username)) {
             return Optional.empty();
@@ -207,6 +218,7 @@ public class AccountService {
         return Optional.ofNullable(accountsByUsername.get(key(username)));
     }
 
+    /** Kiểm tra tài khoản có đang bị khóa hay không. Trả false nếu user không tồn tại hoặc username null/blank. */
     public boolean isLocked(String username) {
         return findByUsername(username).map(Account::isLocked).orElse(false);
     }
