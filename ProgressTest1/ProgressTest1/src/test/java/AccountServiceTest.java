@@ -88,7 +88,7 @@ class AccountServiceTest {
         }
 
         @ParameterizedTest(name = "[{index}] {0}")
-        @MethodSource("lab2.account.AccountServiceTest#invalidRegisterInputs")
+        @MethodSource("AccountServiceTest#invalidRegisterInputs")
         void register_InvalidInput_ReturnsExpectedCode(String desc, String username, String email,
                                                        String password, String confirm, LocalDate dob,
                                                        String phone, ResultCode expected) {
@@ -189,6 +189,17 @@ class AccountServiceTest {
     }
 
     // ======================================================================
+    /**
+     * TODO-7: Kiểm thử đơn vị module login() bám sát Decision Table & BVA:
+     * - Rule 1: User không tồn tại -> INVALID_CREDENTIALS
+     * - Rule 2: Tài khoản DISABLED -> ACCOUNT_DISABLED
+     * - Rule 3: Đang bị khóa -> ACCOUNT_LOCKED (không tăng bộ đếm)
+     * - Rule 4: Sai mật khẩu (< 5 lần) -> INVALID_CREDENTIALS (failedAttempts + 1)
+     * - Rule 5: Sai mật khẩu lần thứ 5 -> ACCOUNT_LOCKED (khóa tài khoản)
+     * - Rule 6: Đăng nhập thành công -> SUCCESS (failedAttempts reset về 0)
+     * - BVA: Biên số lần sai 4 lần (vẫn đăng nhập được) vs 5 lần (bị khóa)
+     * - Admin: unlockAccount mở khóa và reset bộ đếm về 0
+     */
     @Nested
     @DisplayName("login()")
     class Login {
