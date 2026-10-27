@@ -9,12 +9,18 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    // ===== Locators =====
     private final By usernameField = By.id("username");
     private final By passwordField = By.id("password");
-    private final By loginButton   = By.cssSelector("button[type='submit']");
-    private final By successMsg    = By.cssSelector(".flash.success");
-    private final By errorMsg      = By.cssSelector(".flash.error");
+    private final By loginButton =
+            By.cssSelector("button[type='submit']");
+    private final By successMsg =
+            By.cssSelector(".flash.success");
+    private final By errorMsg =
+            By.cssSelector(".flash.error");
+    private final By flashMessage = By.id("flash");
 
+    // ===== Actions =====
     public void navigate() {
         navigateTo("https://the-internet.herokuapp.com/login");
     }
@@ -25,10 +31,34 @@ public class LoginPage extends BasePage {
         click(loginButton);
     }
 
-    public By getSuccessLocator() { return successMsg; }
-    public By getErrorLocator()   { return errorMsg; }
+    public By getSuccessLocator() {
+        return successMsg;
+    }
 
+    public By getErrorLocator() {
+        return errorMsg;
+    }
+
+    // Phương thức có từ TODO 6
     public String getMessageText(By locator) {
         return getText(locator);
+    }
+
+    // ===== TODO 7 =====
+    /**
+     * Đăng nhập với tài khoản hợp lệ,
+     * trả về trang Secure Area.
+     */
+    public SecureAreaPage loginAs(String username, String password) {
+        login(username, password);
+        return new SecureAreaPage(driver);
+    }
+
+    public String getFlashMessage() {
+        return getText(flashMessage);
+    }
+
+    public boolean isAt() {
+        return driver.getCurrentUrl().endsWith("/login");
     }
 }
